@@ -89,10 +89,8 @@ while running:
 
     player.draw(SCREEN)
 
-    # Remove bullets that go out of screen
     bullet = [b for b in bullet if b.y < HEIGHT]
-
-    # Draw Lives
+    
     life_text = font.render(f"Lives: {life}", True, (0, 0, 0))
     SCREEN.blit(life_text, (10, 10))
 
