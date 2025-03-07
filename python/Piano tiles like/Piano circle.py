@@ -2,15 +2,12 @@ import pygame
 import random
 import os
 
-# Initialize pygame
 pygame.init()
 
-# Screen dimensions
 WIDTH, HEIGHT = 500, 600
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Piano Circles")
 
-# Colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREY = (107, 107, 107)
@@ -18,28 +15,22 @@ LIGHT_GREY = (190, 190, 190)
 GREEN = (35, 101, 51)
 RED = (217, 33, 33)
 
-# Tile settings
 TILE_WIDTH = WIDTH // 4
 TILE_HEIGHT = 100
 RADIUS = 50
 SPEED = 5
 
-# Marker something
 MARKER = pygame.Surface((WIDTH, HEIGHT - 50))
 MARKER.fill(LIGHT_GREY)
 
-# Fonts
 FONT = pygame.font.SysFont(None, 60)
 BUTTON_FONT = pygame.font.SysFont(None, 40)
 
-# Buttons mapping (Left = A, Right = D)
 KEYS = {pygame.K_d: 0, pygame.K_f: 1, pygame.K_j: 2, pygame.K_k: 3}
 
-# Base directory to save highscore.txt inside the game folder
 BASE_DIR = os.path.dirname(__file__)
 HIGH_SCORE_FILE = os.path.join(BASE_DIR, "highscore.txt")
 
-# Load high score
 if os.path.exists(HIGH_SCORE_FILE):
     with open(HIGH_SCORE_FILE, "r") as file:
         try:
@@ -76,7 +67,6 @@ class Tile:
     def collide(self, lane):
         return self.x == lane * TILE_WIDTH and not self.hit and self.y + TILE_HEIGHT >= HEIGHT - 120
 
-# Retry
 def retry_button():
     button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 30, 200, 60)
     pygame.draw.rect(SCREEN, GREEN, button_rect)
@@ -84,7 +74,6 @@ def retry_button():
     SCREEN.blit(text, (button_rect.x + 50, button_rect.y + 10))
     return button_rect
 
-# Main Game Loop
 
 def main():
     global high_score
@@ -125,7 +114,6 @@ def main():
                     if not hit_tile:
                         score -= 1
 
-        # Move and draw tiles
         for tile in tiles[:]:
             tile.move()
             tile.draw()
@@ -164,7 +152,6 @@ def main():
             red_overlay.fill((217, 33, 33, 40))
             SCREEN.blit(red_overlay, (0, 0))
 
-        # Add new tiles
         if len(tiles) == 0 or tiles[-1].y > TILE_HEIGHT:
             new_lane = random.choice([0, 1, 2, 3])
             second_lane = random.choice([0, 1, 2, 3])
